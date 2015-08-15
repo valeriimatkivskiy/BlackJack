@@ -22,6 +22,10 @@ public class Player {
         return cash;
     }
 
+    public void changeCash(int value) {
+        cash += value;
+    }
+
     public Player (String playerName, int cash) {
         this.playerName = playerName;
         this.cash = cash;
@@ -36,13 +40,21 @@ public class Player {
         hand.add(card);
     }
 
-    public void showHand() {
+    public void showHand(boolean isDealer) {
         if (hand.isEmpty()) {
             System.out.println("Hand is empty.");
         }
         else {
-            for (int cardIndex = 0; cardIndex < hand.size(); cardIndex++) {
-                System.out.println("Card # " + (cardIndex + 1) + " : " + hand.get(cardIndex).toString());
+            if(isDealer) {
+                System.out.println("Hidden card");
+                for (int cardIndex = 1; cardIndex < hand.size(); cardIndex++) {
+                    System.out.println("Card # " + (cardIndex + 1) + " : " + hand.get(cardIndex).toString());
+                }
+            }
+            else {
+                for (int cardIndex = 0; cardIndex < hand.size(); cardIndex++) {
+                    System.out.println("Card # " + (cardIndex + 1) + " : " + hand.get(cardIndex).toString());
+                }
             }
         }
     }
@@ -65,6 +77,6 @@ public class Player {
         }
         return handSum;
     }
-    
+
 
 }
