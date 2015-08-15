@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class Deck {
 
-    LinkedList<Card> cardList = new LinkedList<Card>();
+    private LinkedList<Card> cardList = new LinkedList<Card>();
 
     public Deck(int numberOfDecks ) {
         if (numberOfDecks > 0 && numberOfDecks <= 8) {
@@ -37,6 +37,7 @@ public class Deck {
             System.out.println("After Swap: " + cardIndex + " " + cardList.get(cardIndex).toString() + " and " + cardToSwap + " " + cardList.get(cardToSwap).toString());
         }
     }
+
     public void showDeck(int numberOfCards) {
         if (numberOfCards <= cardList.size()) {
             for (int cardIndex = 0; cardIndex < numberOfCards; cardIndex++) {
@@ -51,16 +52,14 @@ public class Deck {
             System.exit(1);
         }
     }
+
     public Card dealNextCard() {
-        Card cardToDeal = null;
-        if (!cardList.isEmpty()) {
-            cardToDeal = cardList.getFirst();
-            cardList.removeFirst();
-        }
-        else {
+        if (cardList.isEmpty()) {
             System.err.println("ERROR: Can't deal a card! Deck is empty.");
             System.exit(1);
         }
+        Card cardToDeal = cardList.getFirst();
+        cardList.removeFirst();
         return cardToDeal;
     }
 

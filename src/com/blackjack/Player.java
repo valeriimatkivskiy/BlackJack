@@ -1,0 +1,70 @@
+package com.blackjack;
+
+import java.util.Collections;
+import java.util.LinkedList;
+
+/**
+ * Created by Валерій on 8/15/2015.
+ */
+public class Player {
+
+    private String playerName;
+
+    private int cash;
+
+    private LinkedList<Card> hand = new LinkedList<Card>();
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public int getCash() {
+        return cash;
+    }
+
+    public Player (String playerName, int cash) {
+        this.playerName = playerName;
+        this.cash = cash;
+        if (!hand.isEmpty()) {
+            for (int cardIndex = 0; cardIndex < hand.size(); cardIndex++) {
+                hand.remove();
+            }
+        }
+    }
+
+    public void addCard(Card card) {
+        hand.add(card);
+    }
+
+    public void showHand() {
+        if (hand.isEmpty()) {
+            System.out.println("Hand is empty.");
+        }
+        else {
+            for (int cardIndex = 0; cardIndex < hand.size(); cardIndex++) {
+                System.out.println("Card # " + (cardIndex + 1) + " : " + hand.get(cardIndex).toString());
+            }
+        }
+    }
+
+    public int getHandSum() {
+        int handSum = 0;
+        int aceNumber = 0;
+        if (hand.isEmpty()) {
+            return handSum;
+        }
+        for (int cardIndex = 0; cardIndex < hand.size(); cardIndex++) {
+            if (hand.get(cardIndex).getCardValue() == 11) {
+                aceNumber++;
+            }
+            handSum += hand.get(cardIndex).getCardValue();
+        }
+        while (handSum > 21 && aceNumber > 0) {
+            handSum -= 10;
+            aceNumber--;
+        }
+        return handSum;
+    }
+    
+
+}
